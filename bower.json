@@ -1,0 +1,17 @@
+{
+  "name": "sweet-home-client",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Hang Tu Wong Ley Franco <hangtuwlf@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
