@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'Sweet Home';
   showMenu = true;
   constructor(public router: Router) {
-    this.router.navigate(['/deubt']);
+    // this.router.navigate(['/deubt']);
      /*router.events.forEach((event) => {
         if (event instanceof NavigationStart) {
             (event.url === '/deubt') ? this.showMenu = false : this.showMenu = true;

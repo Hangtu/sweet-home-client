@@ -20,12 +20,12 @@ export class DeubtsComponent implements OnInit {
 
   quincena2_pendientes = 0;
   quincena2_total = '';
+  mobile = false;
 
 
 
   constructor(private http: HttpClient) {
     this.http.get('https://still-mountain-46943.herokuapp.com/findOne').subscribe(data => {
-      console.log(data[0].data.deudas);
       const debts = data[0].data.deudas;
       let sumMinimo = 0;
       let quincena2Total = 0;
@@ -56,6 +56,10 @@ export class DeubtsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(window.screen.width);
+    if (window.screen.width <= 600) { // 768px portrait
+       this.mobile = true;
+    }
   }
 
   getColor(item) {
