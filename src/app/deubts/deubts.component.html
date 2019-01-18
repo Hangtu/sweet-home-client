@@ -1,35 +1,8 @@
-<div class="row" *ngIf="!mobile">
-  <div class="col s12 m4 center-align">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Deuda Total</span>
-        <h5><b>${{total}}</b></h5>
-      </div>
-    </div>
-  </div>
-
-  <div class="col s12 m4 center-align">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Pagos Pendientes del Mes</span>
-        <h5><b>{{pendientes}}</b></h5>
-      </div>
-    </div>
-  </div>
-
-  <div class="col s12 m4 center-align">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Pago Minimo</span>
-        <h5><b>${{pagoMinimo}}</b></h5>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="mobile center-align">
+<div>
   <ul class="collection">
-    <li class="collection-item">Deuda Total <b>${{total}}.00</b></li>
+    <li class="collection-item">Deuda Total <b>${{total}}</b></li>
+    <li class="collection-item">Pago Minimo <b>${{quincena_total}}</b></li>
+    <li class="collection-item">Pagos Pendientes <b> {{quincena_pendientes}}</b></li>
   </ul>
 </div>
 
@@ -37,30 +10,20 @@
 
   <div class="col s12">
     <ul class="tabs">
-      <li class="tab col s6"><a class="active" routerLink="/deubt" routerLinkActive="active">Quincena1</a></li>
-      <li class="tab col s6"><a class="active" routerLink="/quincena2" routerLinkActive="active">Quincena2</a></li>
+      <li class="tab col s6" (click)="setQ('1')"><a [ngClass]="{'active': getQ()}"><b>Quincena1</b></a></li>
+      <li class="tab col s6" (click)="setQ('2')"><a [ngClass]="{'active': !getQ()}"><b>Quincena2</b></a></li>
     </ul>
   </div>
 
-  <div class="col s12 m12">
-    <div class="card center-align" *ngIf="!mobile">
-      <div class="card-content grey lighten-4">
-        <h5>Quincena 1</h5>
-        <h6>Pagos Pendientes {{quincena1_pendientes}}</h6>
-        <h6>Total ${{quincena1_total}}</h6>
-      </div>
-    </div>
-
-    <ul class="collection">
-      <li *ngFor="let item of quincena1" class="collection-item avatar" [ngStyle]="{'background-color': getColor(item.pagado)}">
-        <i class="material-icons circle" [ngClass]="{'blue': true}">attach_money</i>
-        <span class="title">{{item.nombre}}</span>
-        <p>Pago Minimo <b> ${{item.pagoMinimo}}</b></p>
-        <p>Dia limite de pago es el {{item.diaLimite}}</p>
-        <b class="secondary-content" [ngStyle]="{'color': item.pagado === 'no' ? 'white':'black'}">TOTAL
-          ${{item.deuda}}</b>
-      </li>
-    </ul>
-  </div>
+  <ul class="collection">
+    <li *ngFor="let item of quincena" class="collection-item avatar" [ngStyle]="{'background-color': getColor(item.pagado)}" (click)="changeStatus(item)">
+      <i class="material-icons circle" [ngClass]="{'blue': true}">attach_money</i>
+      <span class="title">{{item.nombre}}</span>
+      <p>Pago Minimo <b> ${{item.pagoMinimo}}</b></p>
+      <p>Dia limite de pago es el {{item.diaLimite}}</p>
+      <b class="secondary-content" [ngStyle]="{'color': item.pagado === 'no' ? 'white':'black'}">TOTAL
+        ${{item.deuda}}</b>
+    </li>
+  </ul>
 
 </div>
