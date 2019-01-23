@@ -13,7 +13,7 @@ import { DebtsDetailComponent } from './deubts/debts-detail/debts-detail.compone
 
 const appRoutes: Routes = [
   { path: 'deubt', component: DeubtsComponent, canActivate: [AuthCanActivateGuard] },
-  { path: 'debtsDetail', component: DebtsDetailComponent, canActivate: [AuthCanActivateGuard] },
+  { path: 'debtsDetail', component: DebtsDetailComponent, canActivate: [AuthCanActivateGuard]},
   { path: '', redirectTo: 'deubt', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent}
 ];

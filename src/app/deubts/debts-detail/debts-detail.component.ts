@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,9 +8,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DebtsDetailComponent implements OnInit {
 
+  @Output() changeTitle = new EventEmitter<string>();
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.changeTitle.emit('Details');
     const item = this.route.snapshot.paramMap.get('params');
     console.log(JSON.parse(item));
   }
