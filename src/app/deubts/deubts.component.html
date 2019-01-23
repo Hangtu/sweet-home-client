@@ -10,8 +10,8 @@
 
   <div class="col s12">
     <ul class="tabs">
-      <li class="tab col s6" (click)="setQ('1')"><a [ngClass]="{'active': getQ()}"><b>Quincena1</b></a></li>
-      <li class="tab col s6" (click)="setQ('2')"><a [ngClass]="{'active': !getQ()}"><b>Quincena2</b></a></li>
+      <li class="tab col s6" (click)="setQ('1')"><a [ngClass]="{'active': getQ()}"><b>Quincena1 (15-30)</b></a></li>
+      <li class="tab col s6" (click)="setQ('2')"><a [ngClass]="{'active': !getQ()}"><b>Quincena2 (1-15)</b></a></li>
     </ul>
   </div>
 
@@ -21,9 +21,9 @@
       <span class="title">{{item.nombre}}</span>
       <p>Pago Minimo <b> ${{item.pagoMinimo}}</b></p>
       <p>Dia limite de pago es el {{item.diaLimite}}</p>
-      <b class="secondary-content" [ngStyle]="{'color': item.pagado === 'no' ? 'white':'black'}">TOTAL
-        ${{item.deuda}}</b>
+      <!--<b class="secondary-content" [ngStyle]="{'color': item.pagado === 'no' ? 'white':'black'}">TOTAL ${{item.deuda}}</b>-->
+      <a [routerLink]="[ '/debtsDetail', { params: item | json } ]" class="secondary-content"><i class="material-icons">send</i></a>
     </li>
   </ul>
-
+  
 </div>

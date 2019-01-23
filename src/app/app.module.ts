@@ -9,9 +9,11 @@ import { AppComponent } from './app.component';
 import { DeubtsComponent } from './deubts/deubts.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthCanActivateGuard } from './auth-can-activate.guard';
+import { DebtsDetailComponent } from './deubts/debts-detail/debts-detail.component';
 
 const appRoutes: Routes = [
   { path: 'deubt', component: DeubtsComponent, canActivate: [AuthCanActivateGuard] },
+  { path: 'debtsDetail', component: DebtsDetailComponent, canActivate: [AuthCanActivateGuard] },
   { path: '', redirectTo: 'deubt', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent}
 ];
@@ -23,6 +25,7 @@ const appRoutes: Routes = [
     AppComponent,
     DeubtsComponent,
     PageNotFoundComponent,
+    DebtsDetailComponent,
   ],
   imports: [
     BrowserModule,

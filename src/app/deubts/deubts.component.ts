@@ -164,4 +164,9 @@ export class DeubtsComponent implements OnInit {
     localStorage.setItem('Q2', JSON.stringify(this.quincena2));
   }
 
+
+  dblClick() {
+    console.log('dbclick');
+  }
+
 }
