@@ -11,11 +11,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthCanActivateGuard } from './guards/auth-can-activate.guard';
 import { DebtsDetailComponent } from './deubts/debts-detail/debts-detail.component';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
+  { path: 'login', component: LoginComponent},
   { path: 'debt', component: DeubtsComponent, canActivate: [AuthCanActivateGuard] , data : {title : 'Deudas'}},
   { path: 'debtsDetails', component: DebtsDetailComponent, canActivate: [AuthCanActivateGuard], data : {title : 'Detalle Deudas'}},
-  { path: '', redirectTo: 'debt', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent}
 ];
 
@@ -27,6 +29,7 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     DebtsDetailComponent,
     HeaderComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
