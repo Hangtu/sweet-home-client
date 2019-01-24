@@ -8,17 +8,17 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common'; // for
 import { AppComponent } from './app.component';
 import { DeubtsComponent } from './deubts/deubts.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AuthCanActivateGuard } from './auth-can-activate.guard';
+import { AuthCanActivateGuard } from './guards/auth-can-activate.guard';
 import { DebtsDetailComponent } from './deubts/debts-detail/debts-detail.component';
+import { HeaderComponent } from './header/header.component';
 
 const appRoutes: Routes = [
-  { path: 'deubt', component: DeubtsComponent, canActivate: [AuthCanActivateGuard] },
-  { path: 'debtsDetail', component: DebtsDetailComponent, canActivate: [AuthCanActivateGuard]},
-  { path: '', redirectTo: 'deubt', pathMatch: 'full' },
+  { path: 'debt', component: DeubtsComponent, canActivate: [AuthCanActivateGuard] , data : {title : 'Deudas'}},
+  { path: 'debtsDetails', component: DebtsDetailComponent, canActivate: [AuthCanActivateGuard], data : {title : 'Detalle Deudas'}},
+  { path: '', redirectTo: 'debt', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent}
 ];
 
-// { path: '', redirectTo: 'deubt', pathMatch: 'full' }, { path: '**', component: 'pageNotFoundComponent' }
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ const appRoutes: Routes = [
     DeubtsComponent,
     PageNotFoundComponent,
     DebtsDetailComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

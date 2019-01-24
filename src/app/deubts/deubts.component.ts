@@ -104,7 +104,7 @@ export class DeubtsComponent implements OnInit {
 
   getColor(item) {
     if (item === 'no') {
-      return '#e57373';
+      return '#ffb74d';
     } else {
       return 'white';
     }

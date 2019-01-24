@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class AuthCanActivateGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('can activate'); // When you try to access to some route
+    console.log('Can-Activate Guard'); // When you try to access to some route
     return true;
   }
 
