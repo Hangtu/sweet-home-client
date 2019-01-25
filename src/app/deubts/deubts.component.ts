@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DebtsService } from '../services/debts.service';
 
 @Component({
   selector: 'app-deubts',
@@ -7,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./deubts.component.css']
 })
 export class DeubtsComponent implements OnInit {
+
+  _loading = true;
 
   total = '0';
   quincena = [];
@@ -23,9 +26,9 @@ export class DeubtsComponent implements OnInit {
   mobile = false;
   Q = '1';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, debtsService: DebtsService) {
 
-    let flag = false;
+  /*let flag = false;
 
    const storedQ1 = JSON.stringify(localStorage.getItem('Q1'));
     if (typeof storedQ1 !== 'undefined' && storedQ1 !== 'null') {
@@ -62,10 +65,11 @@ export class DeubtsComponent implements OnInit {
         flag = true;
     }
 
-    if (flag) { this.Q = '1';  this.setQ(this.Q); return; }
+    if (flag) { this.Q = '1';  this.setQ(this.Q); return; }*/
 
+    console.log(debtsService.getDebts());
 
-    this.http.get('https://still-mountain-46943.herokuapp.com/findOne').subscribe(data => {
+    /*this.http.get('https://still-mountain-46943.herokuapp.com/findOne').subscribe(data => {
       const debts = data[0].data.deudas;
       const debts2 = JSON.parse(JSON.stringify(debts)); // CLONE THE OBJECT
       debts.forEach((p) => { // Q1
@@ -93,7 +97,8 @@ export class DeubtsComponent implements OnInit {
       });
 
       this.setQ(this.Q);
-    });
+      this._loading = false;
+    });*/
   }
 
   ngOnInit() {
@@ -162,11 +167,6 @@ export class DeubtsComponent implements OnInit {
   saveData() {
     localStorage.setItem('Q1', JSON.stringify(this.quincena1));
     localStorage.setItem('Q2', JSON.stringify(this.quincena2));
-  }
-
-
-  dblClick() {
-    console.log('dbclick');
   }
 
 }

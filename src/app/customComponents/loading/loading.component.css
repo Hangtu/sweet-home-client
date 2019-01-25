@@ -1,0 +1,21 @@
+.loading {
+    position: absolute;
+    top:25%;
+    left: 48%;
+    z-index: 100;
+}
+
+.newClass {
+    z-index: 100;
+    margin: 0 auto;
+    position:absolute;
+    top:0;
+    right:0;
+    left:0;
+    /*margin-top:200px;*/
+    width: 100wh;
+    height: 100vh;
+    background-color: #ffffff;
+    opacity: 0.4;
+    /*border-radius: 5px;*/
+}

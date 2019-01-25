@@ -7,11 +7,12 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common'; // for
 
 import { AppComponent } from './app.component';
 import { DeubtsComponent } from './deubts/deubts.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './customComponents/page-not-found/page-not-found.component';
 import { AuthCanActivateGuard } from './guards/auth-can-activate.guard';
 import { DebtsDetailComponent } from './deubts/debts-detail/debts-detail.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './customComponents/header/header.component';
 import { LoginComponent } from './login/login.component';
+import { LoadingComponent } from './customComponents/loading/loading.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
     DebtsDetailComponent,
     HeaderComponent,
     LoginComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
