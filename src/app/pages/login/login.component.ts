@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/debt']);
     },
     (err) => {
-      console.log(err);
+      const error = err.statusText;
+      console.log('%c' + error, 'color: red; font-size:100px;');
     });
   }
 

@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
         return next.handle(request).pipe(catchError(err => {
            if (err.status === 401) {
-                console.log('You are not able to go here');
+                // console.log('You are not able to go here');
             }
 
             return throwError(err);
