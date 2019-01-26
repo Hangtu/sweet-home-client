@@ -13,17 +13,15 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-      console.log('httpInterceptor');
-
+      /*console.log('httpInterceptor');
        request = request.clone({
               setHeaders: {Authorization: `Bearer 1234`},
               setParams: {title: 'home'}
         });
 
-         console.log(request);
+        console.log(request);*/
 
         return next.handle(request).pipe(catchError(err => {
-
            if (err.status === 401) {
                 console.log('You are not able to go here');
             }

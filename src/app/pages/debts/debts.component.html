@@ -19,7 +19,7 @@
   </div>
 
   <ul class="collection">
-    <li *ngFor="let item of quincena" class="collection-item avatar" [ngStyle]="{'background-color': getColor(item.pagado)}" (click)="changeStatus(item)">
+    <li *ngFor="let item of quincena; let i=index" class="collection-item avatar" [ngStyle]="{'background-color': getColor(item.pagado)}" (click)="changeStatus(item)">
       <i class="material-icons circle" [ngClass]="{'red': true}">attach_money</i>
       <span class="title">{{item.nombre}}</span>
       <p>Pago Minimo <b> ${{item.pagoMinimo}}</b></p>

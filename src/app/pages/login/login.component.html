@@ -1,16 +1,16 @@
 <div class="login-page loginComponent">
   <div class="form">
-    <form class="register-form">
+    <form class="register-form" (ngSubmit)="onSubmit()">
       <input type="text" placeholder="name"/>
       <input type="password" placeholder="password"/>
       <input type="text" placeholder="email address"/>
-      <button>create</button>
+      <button type="submit">create</button>
       <p class="message">Already registered? <a href="#">Sign In</a></p>
     </form>
-    <form class="login-form">
-      <input type="text" placeholder="username"/>
-      <input type="password" placeholder="password"/>
-      <button (click)="login()">login</button>
+    <form class="login-form"  (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+      <input type="text" placeholder="username" formControlName="user"  required/>
+      <input type="password" placeholder="password" formControlName="password"  required/>
+      <button type="submit" [disabled]="!loginForm.valid">login</button>
       <p class="message">Not registered? <a href="#">Create an account</a></p>
     </form>
   </div>

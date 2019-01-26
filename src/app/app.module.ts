@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common'; // for prod routes
+import { FormBuilder, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DebtsComponent } from './pages/debts/debts.component';
@@ -38,6 +39,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
@@ -45,7 +47,7 @@ const appRoutes: Routes = [
     )
   ],
   providers : [{provide: LocationStrategy, useClass: HashLocationStrategy},
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, FormBuilder],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

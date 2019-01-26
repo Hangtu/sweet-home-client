@@ -8,19 +8,33 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class DebtsService {
 
-   _url = 'https://still-mountain-46943.herokuapp.com/findOne';
+    _url = 'https://still-mountain-46943.herokuapp.com';
+   // _url = 'http://192.168.100.71:3000';
 
   constructor(private http: HttpClient) { }
 
-  getDebts() {
-    return this.http.get(this._url).pipe(
+  login(payload) {
+    return this.http.post(this._url + '/login', payload).pipe(
       catchError(this.handleError)
     );
   }
 
+  getDebts() {
+    return this.http.get(this._url + '/findOne').pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  setToken(e) {
+    sessionStorage.setItem('token', e.token);
+  }
+
+  validateToken() {
+    return sessionStorage.getItem('token');
+}
+
 
   private handleError(err: HttpErrorResponse | any) {
-    console.log(err);
     return throwError(err || err.message);
   }
 
