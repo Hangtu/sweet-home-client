@@ -8,7 +8,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class DebtsService {
 
-   _url = 'https://still-mountain-46943.herokuapp.com//findOne';
+   _url = 'https://still-mountain-46943.herokuapp.com/findOne';
 
   constructor(private http: HttpClient) { }
 

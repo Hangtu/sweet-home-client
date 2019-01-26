@@ -7,10 +7,10 @@ import { DebtsService } from '../../services/debts.service';
   templateUrl: './debts.component.html',
   styleUrls: ['./debts.component.css']
 })
+
 export class DebtsComponent implements OnInit {
 
   _loading = true;
-
   total = '0';
   quincena = [];
   quincena1 = [];
@@ -27,77 +27,85 @@ export class DebtsComponent implements OnInit {
   Q = '1';
 
   constructor(private http: HttpClient, debtsService: DebtsService) {
+    debtsService.getDebts().subscribe(data => {
+      this.loadAllDebts(data);
+    });
 
-  /*let flag = false;
+    // this.loadAllDebtsLocalStorage();
 
-   const storedQ1 = JSON.stringify(localStorage.getItem('Q1'));
-    if (typeof storedQ1 !== 'undefined' && storedQ1 !== 'null') {
-      const storeD1 = JSON.parse(localStorage.getItem('Q1'));
-      storeD1.forEach(p => {
-        this.total = (parseFloat(this.total) + parseFloat(p.deuda)).toFixed(2);
-        if (p.quincena === '1' || p.quincena === '1.2') {
-          this.quincena1.push(p);
-          this.quincena1_total = (parseFloat(this.quincena1_total) + parseFloat(p.pagoMinimo)).toFixed(2);
-          if (p.pagado === 'no') {
-            this.quincena1_pendientes++;
-          } else {
-            this.quincena1_total = (parseFloat(this.quincena1_total) - parseFloat(p.pagoMinimo)).toFixed(2);
-          }
-        }
-      });
-       flag = true;
-    }
+  }
 
-    const storedQ2 = JSON.stringify(localStorage.getItem('Q2'));
-    if (typeof storedQ2 !== 'undefined' &&  storedQ2 !== 'null' ) {
-        const storeD2 = JSON.parse(localStorage.getItem('Q2'));
-        storeD2.forEach(p => {
-          if (p.quincena === '2' || p.quincena === '1.2') {
-            this.quincena2.push(p);
-            this.quincena2_total = (parseFloat(this.quincena2_total) + parseFloat(p.pagoMinimo)).toFixed(2);
+  loadAllDebtsLocalStorage() {
+    let flag = false;
+
+     const storedQ1 = JSON.stringify(localStorage.getItem('Q1'));
+      if (typeof storedQ1 !== 'undefined' && storedQ1 !== 'null') {
+        const storeD1 = JSON.parse(localStorage.getItem('Q1'));
+        storeD1.forEach(p => {
+          this.total = (parseFloat(this.total) + parseFloat(p.deuda)).toFixed(2);
+          if (p.quincena === '1' || p.quincena === '1.2') {
+            this.quincena1.push(p);
+            this.quincena1_total = (parseFloat(this.quincena1_total) + parseFloat(p.pagoMinimo)).toFixed(2);
             if (p.pagado === 'no') {
-              this.quincena2_pendientes++;
+              this.quincena1_pendientes++;
             } else {
-              this.quincena2_total = (parseFloat(this.quincena2_total) - parseFloat(p.pagoMinimo)).toFixed(2);
+              this.quincena1_total = (parseFloat(this.quincena1_total) - parseFloat(p.pagoMinimo)).toFixed(2);
             }
           }
         });
-        flag = true;
-    }
+         flag = true;
+      }
 
-    if (flag) { this.Q = '1';  this.setQ(this.Q); return; }*/
+      const storedQ2 = JSON.stringify(localStorage.getItem('Q2'));
+      if (typeof storedQ2 !== 'undefined' &&  storedQ2 !== 'null' ) {
+          const storeD2 = JSON.parse(localStorage.getItem('Q2'));
+          storeD2.forEach(p => {
+            if (p.quincena === '2' || p.quincena === '1.2') {
+              this.quincena2.push(p);
+              this.quincena2_total = (parseFloat(this.quincena2_total) + parseFloat(p.pagoMinimo)).toFixed(2);
+              if (p.pagado === 'no') {
+                this.quincena2_pendientes++;
+              } else {
+                this.quincena2_total = (parseFloat(this.quincena2_total) - parseFloat(p.pagoMinimo)).toFixed(2);
+              }
+            }
+          });
+          flag = true;
+      }
+
+      if (flag) { this.Q = '1';  this.setQ(this.Q); return; }
+  }
 
 
-    debtsService.getDebts().subscribe(data => {
-      const debts = data[0].data.deudas;
-      const debts2 = JSON.parse(JSON.stringify(debts)); // CLONE THE OBJECT
-      debts.forEach((p) => { // Q1
-        this.total = (parseFloat(this.total) + parseFloat(p.deuda)).toFixed(2);
-        if (p.quincena === '1' || p.quincena === '1.2') {
-          this.quincena1.push(p);
-          this.quincena1_total = (parseFloat(this.quincena1_total) + parseFloat(p.pagoMinimo)).toFixed(2);
-          if (p.pagado === 'no') {
-            this.quincena1_pendientes++;
-          } else {
-            this.quincena1_total = (parseFloat(this.quincena1_total) - parseFloat(p.pagoMinimo)).toFixed(2);
-          }
+  loadAllDebts(data: Object | { data: { deudas: any; }; }[]) {
+    const debts = data[0].data.deudas;
+    const debts2 = JSON.parse(JSON.stringify(debts)); // CLONE THE OBJECT
+    debts.forEach((p) => { // Q1
+      this.total = (parseFloat(this.total) + parseFloat(p.deuda)).toFixed(2);
+      if (p.quincena === '1' || p.quincena === '1.2') {
+        this.quincena1.push(p);
+        this.quincena1_total = (parseFloat(this.quincena1_total) + parseFloat(p.pagoMinimo)).toFixed(2);
+        if (p.pagado === 'no') {
+          this.quincena1_pendientes++;
+        } else {
+          this.quincena1_total = (parseFloat(this.quincena1_total) - parseFloat(p.pagoMinimo)).toFixed(2);
         }
-      });
-      debts2.forEach(p => { // Q2
-        if (p.quincena === '2' || p.quincena === '1.2') {
-          this.quincena2.push(p);
-          this.quincena2_total = (parseFloat(this.quincena2_total) + parseFloat(p.pagoMinimo)).toFixed(2);
-          if (p.pagado === 'no') {
-            this.quincena2_pendientes++;
-          } else {
-            this.quincena2_total = (parseFloat(this.quincena2_total) - parseFloat(p.pagoMinimo)).toFixed(2);
-          }
-        }
-      });
-
-      this.setQ(this.Q);
-      this._loading = false;
+      }
     });
+    debts2.forEach(p => { // Q2
+      if (p.quincena === '2' || p.quincena === '1.2') {
+        this.quincena2.push(p);
+        this.quincena2_total = (parseFloat(this.quincena2_total) + parseFloat(p.pagoMinimo)).toFixed(2);
+        if (p.pagado === 'no') {
+          this.quincena2_pendientes++;
+        } else {
+          this.quincena2_total = (parseFloat(this.quincena2_total) - parseFloat(p.pagoMinimo)).toFixed(2);
+        }
+      }
+    });
+
+    this.setQ(this.Q);
+    this._loading = false;
   }
 
   ngOnInit() {
@@ -117,13 +125,13 @@ export class DebtsComponent implements OnInit {
   updateHeadValues(item) {
     if (item.pagado === 'si') {
       if (this.Q === '1') {
-          this.quincena1_pendientes--;
-          this.quincena1_total = (parseFloat(this.quincena1_total) - parseFloat(item.pagoMinimo)).toFixed(2);
+        this.quincena1_pendientes--;
+        this.quincena1_total = (parseFloat(this.quincena1_total) - parseFloat(item.pagoMinimo)).toFixed(2);
       } else {
-          this.quincena2_pendientes--;
-          this.quincena2_total = (parseFloat(this.quincena2_total) - parseFloat(item.pagoMinimo)).toFixed(2);
-        }
+        this.quincena2_pendientes--;
+        this.quincena2_total = (parseFloat(this.quincena2_total) - parseFloat(item.pagoMinimo)).toFixed(2);
       }
+    }
 
     if (item.pagado === 'no') {// if is not paid
       if (this.Q === '1') {
@@ -142,8 +150,6 @@ export class DebtsComponent implements OnInit {
     this.setQ(this.Q);
     this.saveData();
   }
-
-
 
   setQ(q) { // change defaults values
     this.Q = q;

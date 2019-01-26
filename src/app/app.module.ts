@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common'; // for prod routes
 
 import { AppComponent } from './app.component';
@@ -13,6 +13,8 @@ import { DebtsDetailComponent } from './pages/debts-detail/debts-detail.componen
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LoadingComponent } from './components/loading/loading.component';
+
+import { ErrorInterceptor } from './interceptor/error-interceptor';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -37,13 +39,13 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    // tslint:disable-next-line:max-line-length
-    RouterModule.forRoot( // Registering the RouterModule.forRoot() in the AppModule imports makes the Router service available everywhere in the application.
+    RouterModule.forRoot(
       appRoutes,
       { enableTracing: false} // <-- debugging purposes only
     )
   ],
-  providers : [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers : [{provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
