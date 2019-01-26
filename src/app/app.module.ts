@@ -6,17 +6,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common'; // for prod routes
 
 import { AppComponent } from './app.component';
-import { DeubtsComponent } from './deubts/deubts.component';
-import { PageNotFoundComponent } from './customComponents/page-not-found/page-not-found.component';
+import { DebtsComponent } from './pages/debts/debts.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { AuthCanActivateGuard } from './guards/auth-can-activate.guard';
-import { DebtsDetailComponent } from './deubts/debts-detail/debts-detail.component';
-import { HeaderComponent } from './customComponents/header/header.component';
-import { LoginComponent } from './login/login.component';
-import { LoadingComponent } from './customComponents/loading/loading.component';
+import { DebtsDetailComponent } from './pages/debts-detail/debts-detail.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LoginComponent } from './pages/login/login.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
-  { path: 'debt', component: DeubtsComponent, canActivate: [AuthCanActivateGuard] , data : {title : 'Deudas'}},
+  { path: 'debt', component: DebtsComponent, canActivate: [AuthCanActivateGuard] , data : {title : 'Deudas'}},
   { path: 'debtsDetails', component: DebtsDetailComponent, canActivate: [AuthCanActivateGuard], data : {title : 'Detalle Deudas'}},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent}
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    DeubtsComponent,
+    DebtsComponent,
     PageNotFoundComponent,
     DebtsDetailComponent,
     HeaderComponent,

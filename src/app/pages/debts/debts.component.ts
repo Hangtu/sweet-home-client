@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DebtsService } from '../services/debts.service';
+import { DebtsService } from '../../services/debts.service';
 
 @Component({
   selector: 'app-deubts',
-  templateUrl: './deubts.component.html',
-  styleUrls: ['./deubts.component.css']
+  templateUrl: './debts.component.html',
+  styleUrls: ['./debts.component.css']
 })
-export class DeubtsComponent implements OnInit {
+export class DebtsComponent implements OnInit {
 
   _loading = true;
 
@@ -67,9 +67,8 @@ export class DeubtsComponent implements OnInit {
 
     if (flag) { this.Q = '1';  this.setQ(this.Q); return; }*/
 
-    console.log(debtsService.getDebts());
 
-    /*this.http.get('https://still-mountain-46943.herokuapp.com/findOne').subscribe(data => {
+    debtsService.getDebts().subscribe(data => {
       const debts = data[0].data.deudas;
       const debts2 = JSON.parse(JSON.stringify(debts)); // CLONE THE OBJECT
       debts.forEach((p) => { // Q1
@@ -98,7 +97,7 @@ export class DeubtsComponent implements OnInit {
 
       this.setQ(this.Q);
       this._loading = false;
-    });*/
+    });
   }
 
   ngOnInit() {
