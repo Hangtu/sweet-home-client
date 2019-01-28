@@ -2,7 +2,8 @@
   <div class="nav-wrapper grey darken-3">
     <a href="#" class="brand-logo">{{ title }}</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a routerLink="/debt" routerLinkActive="active">Deudas</a></li>
+      <!--<li><a routerLink="/login" routerLinkActive="active"><i class="material-icons">arrow_back</i></a></li>-->
+      <li (click)="logout()"><i class="material-icons">arrow_back</i></li>
     </ul>
   </div>
 </nav>

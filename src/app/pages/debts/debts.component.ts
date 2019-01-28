@@ -26,7 +26,7 @@ export class DebtsComponent implements OnInit {
   mobile = false;
   Q = '1';
 
-  constructor(private http: HttpClient, debtsService: DebtsService) {
+  constructor(private http: HttpClient, private debtsService: DebtsService) {
     debtsService.getDebts().subscribe(data => {
       this.loadAllDebts(data);
     });
@@ -116,7 +116,7 @@ export class DebtsComponent implements OnInit {
 
   getColor(item) {
     if (item === 'no') {
-      return '#ffb74d';
+      return '#ff7043';
     } else {
       return 'white';
     }
@@ -170,8 +170,9 @@ export class DebtsComponent implements OnInit {
   }
 
   saveData() {
-    localStorage.setItem('Q1', JSON.stringify(this.quincena1));
-    localStorage.setItem('Q2', JSON.stringify(this.quincena2));
+    // localStorage.setItem('Q1', JSON.stringify(this.quincena1));
+    // localStorage.setItem('Q2', JSON.stringify(this.quincena2));
+    this.debtsService.updateDebts();
   }
 
 }

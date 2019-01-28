@@ -20,12 +20,12 @@
 
   <ul class="collection">
     <li *ngFor="let item of quincena; let i=index" class="collection-item avatar" [ngStyle]="{'background-color': getColor(item.pagado)}" (click)="changeStatus(item)">
-      <i class="material-icons circle" [ngClass]="{'red': true}">attach_money</i>
+      <i class="material-icons circle" [ngClass]="{'blue': true}">attach_money</i>
       <span class="title">{{item.nombre}}</span>
       <p>Pago Minimo <b> ${{item.pagoMinimo}}</b></p>
       <p>Dia limite de pago es el {{item.diaLimite}}</p>
       <!--<b class="secondary-content" [ngStyle]="{'color': item.pagado === 'no' ? 'white':'black'}">TOTAL ${{item.deuda}}</b>-->
-      <a [routerLink]="[ '/debtsDetails', { params: item | json } ]" class="secondary-content" style="color:#ff3d00"><i class="material-icons">send</i></a>
+      <a [routerLink]="[ '/debtsDetails', { params: item | json } ]" class="secondary-content"><i class="material-icons">send</i></a>
     </li>
   </ul>
 
