@@ -9,21 +9,22 @@ import { DebtsService } from '../services/debts.service';
 })
 export class AuthCanActivateGuard implements CanActivate {
 
+
   constructor (private router: Router, private debtsService: DebtsService) {
 
   }
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    // console.log(''); // When you try to access to some route
-    const isLogged = this.debtsService.validateToken();
 
-    if (isLogged) {
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+
+   const isLogged = this.debtsService.validateToken();
+
+   if (isLogged) {
       return true;
     }
 
     this.router.navigate(['/']);
     return false;
-
   }
 
   /*CANACTIVATE -> WHEN USER TRIED TO ACTIVATE THE ROUTE (IT LOADS THE JS)
