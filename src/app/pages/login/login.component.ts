@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DebtsService } from 'src/app/services/debts.service';
-import { AuthService } from 'angularx-social-login';
-import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+
+
 
 @Component({
   selector: 'app-login',
@@ -19,40 +19,32 @@ export class LoginComponent implements OnInit {
 
   _loading = false;
 
-  constructor(private authService: AuthService, private router: Router, private debtsService: DebtsService, private fb: FormBuilder) { }
+  constructor(private router: Router, private debtsService: DebtsService, private fb: FormBuilder) { }
 
   ngOnInit() {
 
   }
 
-  onSubmit() {
-    this._loading = true;
-    this.debtsService.login(this.loginForm.value).subscribe(data => {
-        this.debtsService.setToken(data);
-        this.router.navigate(['/debt']);
-        this._loading = false;
-    },
-    (err) => {
-      const error = err.statusText;
-      console.log('%c' + error, 'color: red; font-size:100px;');
-      this._loading = false;
-    });
-  }
-
   fbLogin() {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.debtsService.loginFB();
   }
 
   googleLogin() {
-  // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  this.authService.authState.subscribe((data) => {
+    this.debtsService.loginGoogle();
+  }
+
+  onSubmit() {
+    this._loading = true;
+    this.debtsService.login(this.loginForm.value).subscribe(data => {
       console.log(data);
-      console.log((data != null) ? 'true' : 'false');
-    }, err => console.log(err));
+      // this.debtsService.setToken(data.token);
+      this.router.navigate(['/debt']);
+      this._loading = false;
+    },
+      (err) => {
+        const error = err.statusText;
+        console.log('%c' + error, 'color: red; font-size:100px;');
+        this._loading = false;
+      });
   }
-
-  signOut(): void {
-    this.authService.signOut();
-  }
-
 }

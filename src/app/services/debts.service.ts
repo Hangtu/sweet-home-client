@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { AuthService } from 'angularx-social-login';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular-6-social-login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DebtsService {
 
-   _url = 'https://still-mountain-46943.herokuapp.com';
-   // _url = 'http://192.168.100.71:3000';
+  _url = 'https://still-mountain-46943.herokuapp.com';
+  // _url = 'http://192.168.100.71:3000';
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
@@ -40,13 +41,42 @@ export class DebtsService {
   }
 
   setToken(e) {
-    sessionStorage.setItem('token', e.token);
+    sessionStorage.setItem('token', e);
   }
 
   validateToken() {
-    return sessionStorage.getItem('token');
-}
+    const token = sessionStorage.getItem('token');
+    return (token != null && token !== '' && token !== 'undefined');
+  }
 
+  loginFB() {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(data => {
+      this.setToken(data.token);
+      this.router.navigate(['/debt']);
+    });
+  }
+
+  loginGoogle() {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
+      console.log(data.token);
+      this.setToken(data.token);
+      this.router.navigate(['/debt']);
+    });
+  }
+
+  authState() {
+    return this.authService.authState;
+  }
+
+  authSignOut() {
+    this.authService.signOut().then(() => {
+      sessionStorage.setItem('token', '');
+      this.router.navigate(['/']);
+    }).catch(() => {
+      sessionStorage.clear();
+    });
+    sessionStorage.clear();
+  }
 
   private handleError(err: HttpErrorResponse | any) {
     return throwError(err || err.message);

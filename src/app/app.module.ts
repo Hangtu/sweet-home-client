@@ -5,8 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common'; // for prod routes
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
+import {SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider} from 'angular-6-social-login';
 
 
 import { AppComponent } from './app.component';
@@ -17,32 +16,33 @@ import { DebtsDetailComponent } from './pages/debts-detail/debts-detail.componen
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LoadingComponent } from './components/loading/loading.component';
-
+import { LoginGuard } from './guards/login.guard';
 import { ErrorInterceptor } from './interceptor/error-interceptor';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate : [LoginGuard]},
   { path: 'debt', component: DebtsComponent, canActivate: [AuthCanActivateGuard], data: { title: 'Deudas' } },
   { path: 'debtsDetails', component: DebtsDetailComponent, canActivate: [AuthCanActivateGuard], data: { title: 'Detalle Deudas' } },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '#', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 
-const config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider('Google-OAuth-Client-Id')
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('602523876828016')
-  },
-]);
-
-export function provideConfig() {
+export function getAuthServiceConfigs() {
+  const config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('602523876828016')
+        },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider('942756975752-t65d3kcn7bo420ife19h5n21vd2ure7v.apps.googleusercontent.com')
+        }
+      ]
+  );
   return config;
 }
-
 
 
 @NgModule({
@@ -68,7 +68,7 @@ export function provideConfig() {
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, FormBuilder,
-  {provide: AuthServiceConfig, useFactory: provideConfig}],
+  {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
