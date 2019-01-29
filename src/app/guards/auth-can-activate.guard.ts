@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DebtsService } from '../services/debts.service';
+import { AuthService } from 'angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthCanActivateGuard implements CanActivate {
 
-  constructor (private router: Router, private debtsService: DebtsService) {
+  constructor (private authService: AuthService, private router: Router, private debtsService: DebtsService) {
 
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     // console.log(''); // When you try to access to some route
     const isLogged = this.debtsService.validateToken();
+
     if (isLogged) {
       return true;
     }

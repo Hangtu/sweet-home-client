@@ -112,3 +112,29 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }*/
+
+.social {
+  margin: 0 auto;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.social a {
+  padding-top: 15px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+}
+
+.social a:hover {
+  text-decoration: none;
+}
+
+.fb-margin{
+   background-color:#44619D;
+   margin-right: 10px;
+}
+
+.loginButton{
+  margin-top: 10px;
+}

@@ -12,7 +12,15 @@
     <form class="login-form"  (ngSubmit)="onSubmit()" [formGroup]="loginForm">
       <input type="text" placeholder="username" formControlName="user"  required/>
       <input type="password" placeholder="password" formControlName="password"  required/>
-      <button type="submit" [disabled]="!loginForm.valid">login</button>
+     
+      <div class="social">
+        <div class="social-inner">
+          <a (click)="fbLogin()" class="fab fa-2x fa-facebook-f btn fb-margin"></a>
+          <a (click)="googleLogin()" class="fab fa-2x fa-google btn red accent-4"></a>
+        </div>
+      </div>
+      
+      <button class="loginButton" type="submit" [disabled]="!loginForm.valid">login</button>
       <p class="message">Not registered? <a href="#">Create an account</a></p>
     </form>
   </div>

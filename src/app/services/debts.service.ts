@@ -8,8 +8,8 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class DebtsService {
 
-    // _url = 'https://still-mountain-46943.herokuapp.com';
-   _url = 'http://192.168.100.71:3000';
+   _url = 'https://still-mountain-46943.herokuapp.com';
+   // _url = 'http://192.168.100.71:3000';
 
   constructor(private http: HttpClient) { }
 
