@@ -40,16 +40,12 @@ export class LoginComponent implements OnInit {
   }
 
   fbLogin() {
-    console.log('fbLogin');
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    // this.authService.signOut();
   }
 
   googleLogin() {
-   console.log('googleLogin');
-    // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-
-    this.authService.authState.subscribe((data) => {
+  // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  this.authService.authState.subscribe((data) => {
       console.log(data);
       console.log((data != null) ? 'true' : 'false');
     }, err => console.log(err));
