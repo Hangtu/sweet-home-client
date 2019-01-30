@@ -22,12 +22,6 @@ export class DebtsService {
     );
   }
 
-  logout() {
-    sessionStorage.setItem('token', '');
-    this.authService.signOut();
-    this.router.navigate(['/']);
-  }
-
   getDebts() {
     return this.http.get(this._url + '/findOne').pipe(
       catchError(this.handleError)
@@ -70,17 +64,21 @@ export class DebtsService {
 
   authSignOut() {
     this.authService.signOut().then(() => {
-      sessionStorage.setItem('token', '');
-      this.router.navigate(['/']);
+      sessionStorage.clear();
+      this.goToLogin();
     }).catch(() => {
       sessionStorage.clear();
     });
     sessionStorage.clear();
+    this.goToLogin();
+  }
+
+  goToLogin() {
+    this.router.navigate(['/']);
   }
 
   private handleError(err: HttpErrorResponse | any) {
     return throwError(err || err.message);
   }
-
 
 }

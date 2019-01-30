@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import { Observable } from 'rxjs';
 import { DebtsService } from '../services/debts.service';
 
@@ -10,7 +10,7 @@ import { DebtsService } from '../services/debts.service';
 export class AuthCanActivateGuard implements CanActivate {
 
 
-  constructor (private router: Router, private debtsService: DebtsService) {
+  constructor ( private debtsService: DebtsService) {
 
   }
 
@@ -19,11 +19,18 @@ export class AuthCanActivateGuard implements CanActivate {
 
    const isLogged = this.debtsService.validateToken();
 
+    this.debtsService.authState().subscribe( data => { // if there is not current session then logout.
+        if (data == null) {
+          this.debtsService.authSignOut();
+          this.debtsService.goToLogin();
+        }
+    });
+
    if (isLogged) {
       return true;
     }
 
-    this.router.navigate(['/']);
+    this.debtsService.goToLogin();
     return false;
   }
 
