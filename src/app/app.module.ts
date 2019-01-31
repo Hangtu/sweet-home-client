@@ -7,7 +7,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common'; // for
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider} from 'angular-6-social-login';
 
-
 import { AppComponent } from './app.component';
 import { DebtsComponent } from './pages/debts/debts.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';

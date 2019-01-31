@@ -104,6 +104,10 @@ export class DebtsComponent implements OnInit {
       }
     });
 
+    this.quincena1.sort((a, b) => {
+      return (a.nombre.toUpperCase() > b.nombre.toUpperCase()) ? 1 : ((b.nombre.toUpperCase() > a.nombre.toUpperCase()) ? -1 : 0);
+    });
+
     this.setQ(this.Q);
     this._loading = false;
   }
