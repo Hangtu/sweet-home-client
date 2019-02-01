@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -11,8 +11,8 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular
 })
 export class DebtsService {
 
-  _url = 'https://still-mountain-46943.herokuapp.com';
-  // _url = 'http://192.168.100.71:3000';
+  _url = 'https://sweet-home-heroku.herokuapp.com';
+// _url = 'http://192.168.100.71:3000';
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
@@ -28,10 +28,14 @@ export class DebtsService {
     );
   }
 
-  updateDebts() {
-    return this.http.get(this._url + '/update').pipe(
+  updateDebts(payload) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    this.http.post<any>(this._url + '/update', payload, httpOptions).pipe(
       catchError(this.handleError)
-    );
+    ).subscribe(x => x);
   }
 
   setToken(e) {

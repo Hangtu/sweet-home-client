@@ -82,7 +82,7 @@ export class DebtsComponent implements OnInit {
     const debts2 = JSON.parse(JSON.stringify(debts)); // CLONE THE OBJECT
     debts.forEach((p) => { // Q1
       this.total = (parseFloat(this.total) + parseFloat(p.deuda)).toFixed(2);
-      if (p.quincena === '1' || p.quincena === '1.2') {
+      if (p.quincena === '1') {
         this.quincena1.push(p);
         this.quincena1_total = (parseFloat(this.quincena1_total) + parseFloat(p.pagoMinimo)).toFixed(2);
         if (p.pagado === 'no') {
@@ -93,7 +93,7 @@ export class DebtsComponent implements OnInit {
       }
     });
     debts2.forEach(p => { // Q2
-      if (p.quincena === '2' || p.quincena === '1.2') {
+      if (p.quincena === '2') {
         this.quincena2.push(p);
         this.quincena2_total = (parseFloat(this.quincena2_total) + parseFloat(p.pagoMinimo)).toFixed(2);
         if (p.pagado === 'no') {
@@ -104,8 +104,10 @@ export class DebtsComponent implements OnInit {
       }
     });
 
+
     this.quincena1.sort((a, b) => {
-      return (a.nombre.toUpperCase() > b.nombre.toUpperCase()) ? 1 : ((b.nombre.toUpperCase() > a.nombre.toUpperCase()) ? -1 : 0);
+      // tslint:disable-next-line:max-line-length
+      return (parseInt(a.diaLimite, 10) > parseInt(b.diaLimite, 10)) ? 1 : ((parseInt(b.diaLimite, 10 ) > parseInt(a.diaLimite, 10)) ? -1 : 0);
     });
 
     this.setQ(this.Q);
@@ -174,9 +176,11 @@ export class DebtsComponent implements OnInit {
   }
 
   saveData() {
+
+     const payload = this.quincena1.concat(this.quincena2);
     // localStorage.setItem('Q1', JSON.stringify(this.quincena1));
     // localStorage.setItem('Q2', JSON.stringify(this.quincena2));
-    this.debtsService.updateDebts();
+      this.debtsService.updateDebts(payload);
   }
 
 }
