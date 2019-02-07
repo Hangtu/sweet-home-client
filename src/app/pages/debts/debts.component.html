@@ -13,7 +13,7 @@
 
   <div class="col s12">
     <ul class="tabs">
-      <li class="tab col s6" (click)="setQ('1')"><a [ngClass]="{'active': getQ()}"><b>Quincena1 (1-15)</b></a></li>
+      <li class="tab col s6" (click)="setQ('1')"><a [ngClass]="{'active': getQ()}"><b>Quincena1 (1-14)</b></a></li>
       <li class="tab col s6" (click)="setQ('2')"><a [ngClass]="{'active': !getQ()}"><b>Quincena2 (15-30)</b></a></li>
     </ul>
   </div>
@@ -29,6 +29,12 @@
     </li>
   </ul>
 
+</div>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large red">
+    <i class="large material-icons" (click)="addDebt()">add</i>
+  </a>
 </div>
 
 <footer class="page-footer grey darken-3">

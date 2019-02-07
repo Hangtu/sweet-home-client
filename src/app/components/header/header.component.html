@@ -1,9 +1,15 @@
 <nav >
   <div class="nav-wrapper grey darken-3">
     <a href="#" class="brand-logo">{{ title }}</a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <!--<li><a routerLink="/login" routerLinkActive="active"><i class="material-icons">arrow_back</i></a></li>-->
       <li (click)="logout()"><i class="material-icons">arrow_back</i></li>
     </ul>
   </div>
 </nav>
+
+<ul class="sidenav collection with-header" id="mobile-demo">
+    <li class="collection-header"><h4>{{ appName }}</h4></li>
+    <li class="collection-item" (click)="logout()"><div>Salir<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+</ul>

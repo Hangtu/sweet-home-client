@@ -35,6 +35,10 @@ export class DebtsComponent implements OnInit {
 
   }
 
+  addDebt() {
+    console.log('adding debt');
+  }
+
   loadAllDebtsLocalStorage() {
     let flag = false;
 

@@ -56,7 +56,6 @@ export class DebtsService {
 
   loginGoogle() {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
-      console.log(data.token);
       this.setToken(data.token);
       this.router.navigate(['/debt']);
     });
