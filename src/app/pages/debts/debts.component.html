@@ -5,7 +5,6 @@
   <ul class="collection">
     <li class="collection-item">Deuda Total <b>${{total}}</b></li>
     <li class="collection-item">Pago Minimo <b>${{quincena_total}}</b></li>
-    <li class="collection-item">Pagos Pendientes <b> {{quincena_pendientes}}</b></li>
   </ul>
 </div>
 
@@ -19,7 +18,7 @@
   </div>
 
   <ul class="collection with-header">
-    <li class="collection-header"><h4>Pendientes</h4></li>
+    <li class="collection-header"><h4>Pendientes {{quincena_pendientes}}</h4></li>
     <ng-container *ngFor="let item of quincena; let i=index"> 
         <li *ngIf="item.pagado === 'no'" class="collection-item avatar" [ngStyle]="{'background-color': getColor(item.pagado)}" (click)="changeStatus(item)">
             <i class="material-icons circle" [ngClass]="{'blue': true}">attach_money</i>
