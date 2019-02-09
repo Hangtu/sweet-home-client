@@ -18,19 +18,17 @@ export class HeaderComponent implements OnInit {
   appName = 'Sweet Home';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private debtsService: DebtsService) {
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('.sidenav').sidenav();
     });
   }
 
   ngOnInit() {
-     this.title = this.activatedRoute.snapshot.data['title'];
+    this.title = this.activatedRoute.snapshot.data['title'];
   }
 
   logout() {
     this.debtsService.authSignOut();
   }
-
-
 
 }

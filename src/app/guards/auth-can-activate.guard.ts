@@ -11,7 +11,6 @@ export class AuthCanActivateGuard implements CanActivate {
 
 
   constructor ( private debtsService: DebtsService) {
-
   }
 
 
@@ -19,12 +18,12 @@ export class AuthCanActivateGuard implements CanActivate {
 
    const isLogged = this.debtsService.validateToken();
 
-    this.debtsService.authState().subscribe( data => { // if there is not current session then logout.
+    /*this.debtsService.authState().subscribe( data => { // if there is not current session then logout.
         if (data == null) {
           this.debtsService.authSignOut();
           this.debtsService.goToLogin();
         }
-    });
+    });*/
 
    if (isLogged) {
       return true;
