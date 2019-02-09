@@ -17,6 +17,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoginGuard } from './guards/login.guard';
 import { ErrorInterceptor } from './interceptor/error-interceptor';
+import { CreateDebtModalComponent } from './components/create-debt-modal/create-debt-modal.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent, canActivate : [LoginGuard]},
@@ -53,6 +54,7 @@ export function getAuthServiceConfigs() {
     HeaderComponent,
     LoginComponent,
     LoadingComponent,
+    CreateDebtModalComponent,
   ],
   imports: [
     BrowserModule,

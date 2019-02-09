@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DebtsService } from '../../services/debts.service';
+
+declare var M: any;
 
 @Component({
   selector: 'app-deubts',
@@ -8,8 +10,9 @@ import { DebtsService } from '../../services/debts.service';
   styleUrls: ['./debts.component.css']
 })
 
-export class DebtsComponent implements OnInit {
+export class DebtsComponent implements OnInit, AfterViewInit {
 
+  _modal = null;
   _loading = true;
   total = '0';
   quincena = [];
@@ -30,13 +33,23 @@ export class DebtsComponent implements OnInit {
     debtsService.getDebts().subscribe(data => {
       this.loadAllDebts(data);
     });
+  }
 
-    // this.loadAllDebtsLocalStorage();
+  ngAfterViewInit() {
+    const elem = document.getElementById('modal1');
+    this._modal = M.Modal.init(elem, {
+      opacity: 0.5
+    });
+  }
 
+  ngOnInit() {
+    if (window.screen.width <= 600) { // 768px portrait
+      this.mobile = true;
+    }
   }
 
   addDebt() {
-    console.log('adding debt');
+    this._modal.open();
   }
 
   loadAllDebtsLocalStorage() {
@@ -116,12 +129,6 @@ export class DebtsComponent implements OnInit {
 
     this.setQ(this.Q);
     this._loading = false;
-  }
-
-  ngOnInit() {
-    if (window.screen.width <= 600) { // 768px portrait
-      this.mobile = true;
-    }
   }
 
   getColor(item) {
