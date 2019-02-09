@@ -86,7 +86,7 @@ export class DebtsComponent implements OnInit {
     const debts2 = JSON.parse(JSON.stringify(debts)); // CLONE THE OBJECT
     debts.forEach((p) => { // Q1
       this.total = (parseFloat(this.total) + parseFloat(p.deuda)).toFixed(2);
-      if (p.quincena === '1') {
+      if (parseInt(p.diaLimite, 10) >= 1 && parseInt(p.diaLimite, 10) <= 14) {
         this.quincena1.push(p);
         this.quincena1_total = (parseFloat(this.quincena1_total) + parseFloat(p.pagoMinimo)).toFixed(2);
         if (p.pagado === 'no') {
@@ -97,7 +97,7 @@ export class DebtsComponent implements OnInit {
       }
     });
     debts2.forEach(p => { // Q2
-      if (p.quincena === '2') {
+      if (parseInt(p.diaLimite, 10) >= 15 && parseInt(p.diaLimite, 10) <= 31) {
         this.quincena2.push(p);
         this.quincena2_total = (parseFloat(this.quincena2_total) + parseFloat(p.pagoMinimo)).toFixed(2);
         if (p.pagado === 'no') {
