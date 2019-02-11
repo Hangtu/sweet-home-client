@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-create-debt-modal',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateDebtModalComponent implements OnInit {
 
+  debt: any = new Object();
+  @Output() voted = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  save(item) {
+     this.voted.emit(item);
   }
 
 }

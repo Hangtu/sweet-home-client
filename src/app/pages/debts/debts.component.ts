@@ -52,6 +52,10 @@ export class DebtsComponent implements OnInit, AfterViewInit {
     this._modal.open();
   }
 
+  voted(item) {
+    console.log(item);
+  }
+
   loadAllDebtsLocalStorage() {
     let flag = false;
 
