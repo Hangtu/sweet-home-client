@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 
 @Component({
@@ -10,6 +10,7 @@ export class CreateDebtModalComponent implements OnInit {
 
   debt: any = new Object();
   @Output() voted = new EventEmitter();
+  @ViewChild('limit_day') limit_day: ElementRef;
 
   constructor() { }
 
@@ -17,7 +18,8 @@ export class CreateDebtModalComponent implements OnInit {
   }
 
   save(item) {
-     this.voted.emit(item);
+    console.log(this.limit_day.nativeElement.checkValidity());
+    this.voted.emit(item);
   }
 
 }
