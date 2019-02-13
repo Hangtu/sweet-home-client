@@ -4,19 +4,19 @@
       <div class="row">
         <div class="row">
           <div class="input-field col s12">
-            <input id="debt_name" type="text" class="validate" [(ngModel)]="debt.nombre">
+            <input  #nombre id="debt_name" type="text" class="validate" [(ngModel)]="debt.nombre">
             <label for="debt_name">Deuda</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="quantity" type="number" step="0.01" class="validate" [(ngModel)]="debt.deuda">
+            <input  #deuda id="quantity" type="number" step="0.01" class="validate" [(ngModel)]="debt.deuda">
             <label for="quantity">Total</label>
           </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-              <input id="payment" type="number" step="0.01" class="validate" [(ngModel)]="debt.pago_min">
+              <input  #pago_min id="payment" type="number" step="0.01" class="validate" [(ngModel)]="debt.pago_min">
               <label for="payment">Pago Minimo</label>
             </div>
           </div>

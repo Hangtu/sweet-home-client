@@ -10,7 +10,11 @@ export class CreateDebtModalComponent implements OnInit {
 
   debt: any = new Object();
   @Output() voted = new EventEmitter();
+  @ViewChild('nombre') nombre: ElementRef;
+  @ViewChild('deuda') deuda: ElementRef;
+  @ViewChild('pago_min') pago_min: ElementRef;
   @ViewChild('limit_day') limit_day: ElementRef;
+
 
   constructor() { }
 
@@ -18,7 +22,7 @@ export class CreateDebtModalComponent implements OnInit {
   }
 
   save(item) {
-    console.log(this.limit_day.nativeElement.checkValidity());
+    const limit_day = this.limit_day.nativeElement.checkValidity();
     this.voted.emit(item);
   }
 
