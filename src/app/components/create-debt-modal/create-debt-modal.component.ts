@@ -15,26 +15,29 @@ export class CreateDebtModalComponent implements OnInit {
   @ViewChild('pago_min') pago_min: ElementRef;
   @ViewChild('limit_day') limit_day: ElementRef;
 
+  _canSave = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  save(item) {
+  save() {
     const nombre = this.nombre.nativeElement.checkValidity();
     const deuda = this.deuda.nativeElement.checkValidity();
     const pago_min = this.pago_min.nativeElement.checkValidity();
     const limit_day = this.limit_day.nativeElement.checkValidity();
     if (nombre && deuda && pago_min && limit_day) {
-      this.voted.emit(item);
+      this.voted.emit(this.debt);
     }
   }
 
-  checkEmpty(event) {
-    const limit_day = this.limit_day.nativeElement.checkValidity();
-    console.log(limit_day);
-    console.log(this.limit_day.nativeElement.validity);
+  onSubmit(event) {
+   console.log(event.value);
   }
+
+  example(event) {
+    console.log(event);
+   }
 
 }
