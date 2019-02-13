@@ -4,7 +4,7 @@
       <div class="row">
         <div class="row">
           <div class="input-field col s12">
-            <input  #nombre id="debt_name" type="text" class="validate" [(ngModel)]="debt.nombre">
+            <input  #nombre id="debt_name" type="text" class="validate" [(ngModel)]="debt.nombre"   (ngModelChange)="checkEmpty($event)">
             <label for="debt_name">Deuda</label>
           </div>
         </div>
@@ -22,15 +22,15 @@
           </div>
         <div class="row">
             <div class="input-field col s12">
-              <input #limit_day  id="limit_day" type="number"  min="1" max="31" class="validate" [(ngModel)]="debt.dia_limite">
+              <input #limit_day  id="limit_day" type="number"  min="1" max="31" class="validate" [(ngModel)]="debt.dia_limite" (ngModelChange)="checkEmpty($event)">  
               <label for="limit_day">Dia Limite</label>
             </div>
           </div>
       </div>
     </div>
     <div class="modal-footer">
-      <a class="waves-effect waves-green btn-flat" (click)="save(debt)">Save</a>
-      <a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <button class="waves-effect waves-green btn-flat" (click)="save(debt)" [disabled]="true">Save</button>
+      <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
     </div>
   </div>
   <!-- Ends Modal Structure -->
