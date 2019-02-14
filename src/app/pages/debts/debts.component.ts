@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, AfterContentInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DebtsService } from '../../services/debts.service';
 
@@ -10,7 +10,7 @@ declare var M: any;
   styleUrls: ['./debts.component.css']
 })
 
-export class DebtsComponent implements OnInit, AfterViewInit {
+export class DebtsComponent implements OnInit, AfterContentInit {
 
   _modal = null;
   _loading = true;
@@ -35,7 +35,7 @@ export class DebtsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     const elem = document.getElementById('modal1');
     this._modal = M.Modal.init(elem, {
       opacity: 0.5
@@ -52,7 +52,7 @@ export class DebtsComponent implements OnInit, AfterViewInit {
     this._modal.open();
   }
 
-  voted(item) {
+  saveDebtModal(item) {
     console.log(item);
   }
 

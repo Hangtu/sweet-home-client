@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Input, AfterContentInit } from '@angular/core';
 
 
 @Component({
@@ -6,10 +6,11 @@ import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '
   templateUrl: './create-debt-modal.component.html',
   styleUrls: ['./create-debt-modal.component.css']
 })
-export class CreateDebtModalComponent implements OnInit {
+export class CreateDebtModalComponent implements OnInit, AfterContentInit {
 
   debt: any = new Object();
-  @Output() voted = new EventEmitter();
+  @Output() saveDebtModal = new EventEmitter();
+  @Input() modal;
   @ViewChild('nombre') nombre: ElementRef;
   @ViewChild('deuda') deuda: ElementRef;
   @ViewChild('pago_min') pago_min: ElementRef;
@@ -20,24 +21,21 @@ export class CreateDebtModalComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  ngAfterContentInit() {
+
   }
 
   save() {
     const nombre = this.nombre.nativeElement.checkValidity();
-    const deuda = this.deuda.nativeElement.checkValidity();
-    const pago_min = this.pago_min.nativeElement.checkValidity();
-    const limit_day = this.limit_day.nativeElement.checkValidity();
-    if (nombre && deuda && pago_min && limit_day) {
-      this.voted.emit(this.debt);
-    }
   }
 
-  onSubmit(event) {
-   console.log(event.value);
+  onSubmit(form) {
+    this.saveDebtModal.emit(form.value);
+    form.reset();
+    this.modal.close();
   }
-
-  example(event) {
-    console.log(event);
-   }
 
 }

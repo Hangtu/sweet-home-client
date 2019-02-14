@@ -5,34 +5,33 @@
       <div class="row">
         <div class="row">
           <div class="input-field col s12">
-            <input  #nombre="ngModel" id="debt_name" type="text" class="" [(ngModel)]="debt.nombre" name="nombre"  [ngClass]="{'invalid': nombre.touched}" required (ngModelChange)="example(nombre)">
+            <input  #nombre="ngModel" id="debt_name" type="text" class="" [(ngModel)]="debt.nombre" name="nombre"  [ngClass]="[nombre.valid === true ? 'valid' : 'invalid']" required>
             <label for="debt_name">Deuda</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input  #deuda id="quantity" type="number" step="0.01" class="validate" [(ngModel)]="debt.deuda" name="deuda" required>
+            <input  #deuda="ngModel" id="quantity" type="number" step="0.01" class="validate" [(ngModel)]="debt.deuda" name="deuda" [ngClass]="[deuda.valid === true ? 'valid' : 'invalid']" required>
             <label for="quantity">Total</label>
           </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-              <input  #pago_min id="payment" type="number" step="0.01" class="validate" [(ngModel)]="debt.pago_min" name="pago_min" required>
+              <input  #pago_min="ngModel" id="payment" type="number" step="0.01" class="validate" [(ngModel)]="debt.pago_min" name="pago_min" [ngClass]="[pago_min.valid === true ? 'valid' : 'invalid']" required>
               <label for="payment">Pago Minimo</label>
             </div>
           </div>
         <div class="row">
             <div class="input-field col s12">
-              <input #limit_day  id="limit_day" type="number" min="1" max="31" class="validate" [(ngModel)]="debt.dia_limite" name="limit_day" required>  
+              <input #limit_day="ngModel"  id="limit_day" type="number" min="1" max="31" pattern="\d*" [(ngModel)]="debt.dia_limite" name="limit_day" [ngClass]="[limit_day.valid === true ? 'valid' : 'invalid']" required>  
               <label for="limit_day">Dia Limite</label>
             </div>
           </div>
       </div>
     </div>
     <div class="modal-footer">
-      <!--<button class="waves-effect waves-green btn-flat" (click)="save()" [disabled]="_canSave">Save</button>-->
       <button type="submit" class="waves-effect waves-green btn-flat" [disabled]="!debtForm.form.valid">Done</button>
-      <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+      <button type="button" class="modal-close waves-effect waves-green btn-flat">Cancel</button>
     </div>
     </form>
   </div>
