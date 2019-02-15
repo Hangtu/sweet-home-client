@@ -53,48 +53,57 @@ export class DebtsComponent implements OnInit, AfterContentInit {
   }
 
   saveDebtModal(item) {
-    console.log(item);
+    this.debtsService.saveDebts(item).subscribe(x => {
+      console.log(x);
+      if (x.status === 'ok') {
+        if (parseInt(x.item.diaLimite, 10) >= 1 && parseInt(x.item.diaLimite, 10) <= 14) {
+          this.quincena1.push(x.item);
+        } else {
+          this.quincena2.push(x.item);
+        }
+      }
+    });
   }
 
   loadAllDebtsLocalStorage() {
     let flag = false;
 
-     const storedQ1 = JSON.stringify(localStorage.getItem('Q1'));
-      if (typeof storedQ1 !== 'undefined' && storedQ1 !== 'null') {
-        const storeD1 = JSON.parse(localStorage.getItem('Q1'));
-        storeD1.forEach(p => {
-          this.total = (parseFloat(this.total) + parseFloat(p.deuda)).toFixed(2);
-          if (p.quincena === '1' || p.quincena === '1.2') {
-            this.quincena1.push(p);
-            this.quincena1_total = (parseFloat(this.quincena1_total) + parseFloat(p.pagoMinimo)).toFixed(2);
-            if (p.pagado === 'no') {
-              this.quincena1_pendientes++;
-            } else {
-              this.quincena1_total = (parseFloat(this.quincena1_total) - parseFloat(p.pagoMinimo)).toFixed(2);
-            }
+    const storedQ1 = JSON.stringify(localStorage.getItem('Q1'));
+    if (typeof storedQ1 !== 'undefined' && storedQ1 !== 'null') {
+      const storeD1 = JSON.parse(localStorage.getItem('Q1'));
+      storeD1.forEach(p => {
+        this.total = (parseFloat(this.total) + parseFloat(p.deuda)).toFixed(2);
+        if (p.quincena === '1' || p.quincena === '1.2') {
+          this.quincena1.push(p);
+          this.quincena1_total = (parseFloat(this.quincena1_total) + parseFloat(p.pagoMinimo)).toFixed(2);
+          if (p.pagado === 'no') {
+            this.quincena1_pendientes++;
+          } else {
+            this.quincena1_total = (parseFloat(this.quincena1_total) - parseFloat(p.pagoMinimo)).toFixed(2);
           }
-        });
-         flag = true;
-      }
+        }
+      });
+      flag = true;
+    }
 
-      const storedQ2 = JSON.stringify(localStorage.getItem('Q2'));
-      if (typeof storedQ2 !== 'undefined' &&  storedQ2 !== 'null' ) {
-          const storeD2 = JSON.parse(localStorage.getItem('Q2'));
-          storeD2.forEach(p => {
-            if (p.quincena === '2' || p.quincena === '1.2') {
-              this.quincena2.push(p);
-              this.quincena2_total = (parseFloat(this.quincena2_total) + parseFloat(p.pagoMinimo)).toFixed(2);
-              if (p.pagado === 'no') {
-                this.quincena2_pendientes++;
-              } else {
-                this.quincena2_total = (parseFloat(this.quincena2_total) - parseFloat(p.pagoMinimo)).toFixed(2);
-              }
-            }
-          });
-          flag = true;
-      }
+    const storedQ2 = JSON.stringify(localStorage.getItem('Q2'));
+    if (typeof storedQ2 !== 'undefined' && storedQ2 !== 'null') {
+      const storeD2 = JSON.parse(localStorage.getItem('Q2'));
+      storeD2.forEach(p => {
+        if (p.quincena === '2' || p.quincena === '1.2') {
+          this.quincena2.push(p);
+          this.quincena2_total = (parseFloat(this.quincena2_total) + parseFloat(p.pagoMinimo)).toFixed(2);
+          if (p.pagado === 'no') {
+            this.quincena2_pendientes++;
+          } else {
+            this.quincena2_total = (parseFloat(this.quincena2_total) - parseFloat(p.pagoMinimo)).toFixed(2);
+          }
+        }
+      });
+      flag = true;
+    }
 
-      if (flag) { this.Q = '1';  this.setQ(this.Q); return; }
+    if (flag) { this.Q = '1'; this.setQ(this.Q); return; }
   }
 
 
@@ -128,7 +137,12 @@ export class DebtsComponent implements OnInit, AfterContentInit {
 
     this.quincena1.sort((a, b) => {
       // tslint:disable-next-line:max-line-length
-      return (parseInt(a.diaLimite, 10) > parseInt(b.diaLimite, 10)) ? 1 : ((parseInt(b.diaLimite, 10 ) > parseInt(a.diaLimite, 10)) ? -1 : 0);
+      return (parseInt(a.diaLimite, 10) > parseInt(b.diaLimite, 10)) ? 1 : ((parseInt(b.diaLimite, 10) > parseInt(a.diaLimite, 10)) ? -1 : 0);
+    });
+
+    this.quincena2.sort((a, b) => {
+      // tslint:disable-next-line:max-line-length
+      return (parseInt(a.diaLimite, 10) > parseInt(b.diaLimite, 10)) ? 1 : ((parseInt(b.diaLimite, 10) > parseInt(a.diaLimite, 10)) ? -1 : 0);
     });
 
     this.setQ(this.Q);
@@ -192,10 +206,10 @@ export class DebtsComponent implements OnInit, AfterContentInit {
 
   saveData() {
 
-     const payload = this.quincena1.concat(this.quincena2);
+    const payload = this.quincena1.concat(this.quincena2);
     // localStorage.setItem('Q1', JSON.stringify(this.quincena1));
     // localStorage.setItem('Q2', JSON.stringify(this.quincena2));
-      this.debtsService.updateDebts(payload);
+    this.debtsService.updateDebts(payload);
   }
 
 }

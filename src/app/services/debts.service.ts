@@ -11,8 +11,8 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular
 })
 export class DebtsService {
 
-  _url = 'https://sweet-home-heroku.herokuapp.com';
-// _url = 'http://192.168.100.71:3000';
+ _url = 'https://sweet-home-heroku.herokuapp.com';
+ // _url = 'http://192.168.100.71:3000';
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
@@ -36,6 +36,17 @@ export class DebtsService {
     this.http.post<any>(this._url + '/update', payload, httpOptions).pipe(
       catchError(this.handleError)
     ).subscribe(x => x);
+  }
+
+
+  saveDebts(payload) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+   return this.http.post<any>(this._url + '/save', payload, httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
   setToken(e) {
