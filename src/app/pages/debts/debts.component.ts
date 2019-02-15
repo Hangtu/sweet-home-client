@@ -43,7 +43,7 @@ export class DebtsComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
-    if (window.screen.width <= 600) { // 768px portrait
+    if (window.screen.width <= 600) {
       this.mobile = true;
     }
   }
