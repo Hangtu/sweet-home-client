@@ -39,14 +39,14 @@ export class DebtsDetailComponent implements OnInit {
     }
 
     const payload = {
-       newItem : result,
-       oldItem : this.item
+      newItem: result,
+      oldItem: this.item
     };
 
-    this.debtService.updateDebtContent(payload).subscribe( data => {
-        if (data.status === 'ok') {
-            this.item = result;
-        }
+    this.debtService.updateDebtContent(payload).subscribe(data => {
+      if (data.status === 'ok') {
+        this.item = result;
+      }
     });
   }
 

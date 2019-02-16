@@ -4,6 +4,7 @@ import { DebtsService } from 'src/app/services/debts.service';
 
 declare var jquery: any;
 declare var $: any;
+declare var swal: any;
 
 
 @Component({
@@ -28,7 +29,17 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.debtsService.authSignOut();
+    swal({
+      title: 'Do you want to log out??',
+      text: '',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.debtsService.authSignOut();
+        }
+      });
   }
-
 }
