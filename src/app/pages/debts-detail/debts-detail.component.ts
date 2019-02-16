@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DebtsService } from 'src/app/services/debts.service';
+import { debounceTime } from 'rxjs/operators';
 
 declare var swal: any;
 
@@ -31,6 +32,24 @@ export class DebtsDetailComponent implements OnInit {
     this.route.snapshot.data['title'] = this.item.nombre;
   }
 
+  saveDebt(item) {
+    const result = {};
+    for (let i = 0; i < this.items.length; i++) {
+      result[this.items[i].key] = this.items[i].value;
+    }
+
+    const payload = {
+       newItem : result,
+       oldItem : this.item
+    };
+
+    this.debtService.updateDebtContent(payload).subscribe( data => {
+        if (data.status === 'ok') {
+            this.item = result;
+        }
+    });
+  }
+
 
   deleteDebt() {
     swal({
@@ -40,15 +59,17 @@ export class DebtsDetailComponent implements OnInit {
       buttons: true,
       dangerMode: true,
     })
-    .then((willDelete) => {
-      if (willDelete) {
-        this.debtService.deleteDebt(this.item).subscribe(x => {
-          swal('Poof! Your debt has been deleted!', {
-            icon: 'success',
+      .then((willDelete) => {
+        if (willDelete) {
+          this.debtService.deleteDebt(this.item).subscribe(x => {
+            swal('Poof! Your debt has been deleted!', {
+              icon: 'success',
+            });
+            this.debtService.goToDebt();
           });
-          this.debtService.goToDebt();
-        });
-      }
-    });
+        }
+      });
   }
 }
+
+

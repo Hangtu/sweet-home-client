@@ -4,13 +4,14 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular-6-social-login';
+import { debounceTime } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DebtsService {
 
-  _url = 'https://sweet-home-heroku.herokuapp.com';
+   _url = 'https://sweet-home-heroku.herokuapp.com';
   // _url = 'http://192.168.100.71:3000';
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
@@ -35,6 +36,16 @@ export class DebtsService {
     this.http.post<any>(this._url + '/update', payload, httpOptions).pipe(
       catchError(this.handleError)
     ).subscribe(x => x);
+  }
+
+  updateDebtContent(payload) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    return this.http.post<any>(this._url + '/updateContent', payload, httpOptions).pipe(debounceTime(5000),
+      catchError(this.handleError)
+    );
   }
 
 
