@@ -54,7 +54,6 @@ export class DebtsComponent implements OnInit, AfterContentInit {
 
   saveDebtModal(item) {
     this.debtsService.saveDebts(item).subscribe(x => {
-      console.log(x);
       if (x.status === 'ok') {
         if (parseInt(x.item.diaLimite, 10) >= 1 && parseInt(x.item.diaLimite, 10) <= 14) {
           this.quincena1.push(x.item);

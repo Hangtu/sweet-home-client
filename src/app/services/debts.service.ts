@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular-6-social-login';
 
 @Injectable({
@@ -11,8 +10,8 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular
 })
 export class DebtsService {
 
- _url = 'https://sweet-home-heroku.herokuapp.com';
- // _url = 'http://192.168.100.71:3000';
+  _url = 'https://sweet-home-heroku.herokuapp.com';
+  // _url = 'http://192.168.100.71:3000';
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
@@ -44,7 +43,17 @@ export class DebtsService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-   return this.http.post<any>(this._url + '/save', payload, httpOptions).pipe(
+    return this.http.post<any>(this._url + '/save', payload, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteDebt(payload) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    return this.http.post<any>(this._url + '/delete', payload, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -89,6 +98,10 @@ export class DebtsService {
 
   goToLogin() {
     this.router.navigate(['/']);
+  }
+
+  goToDebt() {
+    this.router.navigate(['/debt']);
   }
 
   private handleError(err: HttpErrorResponse | any) {
