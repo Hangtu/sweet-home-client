@@ -1,9 +1,9 @@
 <app-header></app-header>
-<table class="striped centered">
+<table class="striped centered responsive-table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Value</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -12,8 +12,8 @@
       <tr *ngIf="item.key != 'pagado' && item.key != 'tipo'">
         <td>{{item.key}}</td>
         <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate" (keyup)="saveDebt($event)"
-            (input)="item.value = $event.target.value" value="{{item.value}}">
+          <input type="text" class="validate"
+            (input)="item.value = $event.target.value" value="{{item.value}}" [required]="true">
         </div>
       </tr>
     </ng-container>
@@ -22,4 +22,5 @@
 
 <div class="center-align">
   <button class="waves-effect waves-light btn" (click)="deleteDebt()">Delete</button>
+  <button class="waves-effect waves-light btn" (click)="saveDebt()" style="margin-left:1%;">Save</button>
 </div>

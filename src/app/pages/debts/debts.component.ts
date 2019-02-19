@@ -57,8 +57,10 @@ export class DebtsComponent implements OnInit, AfterContentInit {
       if (x.status === 'ok') {
         if (parseInt(x.item.diaLimite, 10) >= 1 && parseInt(x.item.diaLimite, 10) <= 14) {
           this.quincena1.push(x.item);
+          M.toast({html: 'Item added'});
         } else {
           this.quincena2.push(x.item);
+          M.toast({html: 'Item added'});
         }
       }
     });

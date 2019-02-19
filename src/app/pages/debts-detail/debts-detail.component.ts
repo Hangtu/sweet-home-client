@@ -4,6 +4,7 @@ import { DebtsService } from 'src/app/services/debts.service';
 import { debounceTime } from 'rxjs/operators';
 
 declare var swal: any;
+declare var M: any;
 
 @Component({
   selector: 'app-debts-detail',
@@ -32,7 +33,7 @@ export class DebtsDetailComponent implements OnInit {
     this.route.snapshot.data['title'] = this.item.nombre;
   }
 
-  saveDebt(item) {
+  saveDebt() {
     const result = {};
     for (let i = 0; i < this.items.length; i++) {
       result[this.items[i].key] = this.items[i].value;
@@ -46,6 +47,7 @@ export class DebtsDetailComponent implements OnInit {
     this.debtService.updateDebtContent(payload).subscribe(data => {
       if (data.status === 'ok') {
         this.item = result;
+        M.toast({html: 'Item updated!'});
       }
     });
   }
