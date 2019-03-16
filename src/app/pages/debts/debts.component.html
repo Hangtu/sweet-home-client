@@ -1,12 +1,22 @@
 <app-header></app-header>
 <app-loading *ngIf="_loading"></app-loading>
 
-<div>
-  <ul class="collection">
-    <li class="collection-item">Deuda Total <b>${{total}}</b></li>
-    <li class="collection-item">Pago Minimo <b>${{quincena_total}}</b></li>
-  </ul>
+
+<div class="row">
+  <div class="col s12 m6">
+    <div class="card-panel teal center-align">
+      <h6 class="white-text">Deuda Total ${{total}}
+      </h6>
+    </div>
+  </div>
+  <div class="col s12 m6">
+    <div class="card-panel teal center-align">
+      <h6 class="white-text center-align">Pago Minimo ${{quincena_total}}
+      </h6>
+    </div>
+  </div>
 </div>
+          
 
 <div class="row">
 
@@ -18,13 +28,13 @@
   </div>
 
   <ul class="collection with-header">
-    <li class="collection-header">
+    <li class="collection-header center-align">
       <h4>Pendientes {{quincena_pendientes}}</h4>
     </li>
 
     <div class="row">
       <ng-container *ngFor="let item of quincena; let i=index">
-        <div class="col s3 m3" *ngIf="item.pagado === 'no'">
+        <div class="col s12 m3" *ngIf="item.pagado === 'no'">
           <div class="card   teal darken-1">
             <div class="card-content white-text">
               <span class="card-title"><b>{{item.nombre}}</b></span>
@@ -43,12 +53,12 @@
   </ul>
 
   <ul class="collection with-header">
-    <li class="collection-header">
+    <li class="collection-header center-align">
       <h4>Pagados</h4>
     </li>
     <div class="row">
       <ng-container *ngFor="let item of quincena; let i=index">
-        <div class="col s3 m3" *ngIf="item.pagado === 'si'">
+        <div class="col s12 m3" *ngIf="item.pagado === 'si'">
           <div class="card orange darken-1">
             <div class="card-content white-text">
               <span class="card-title"><b>{{item.nombre}}</b></span>
