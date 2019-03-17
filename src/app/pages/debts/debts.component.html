@@ -4,13 +4,13 @@
 
 <div class="row">
   <div class="col s12 m6">
-    <div class="card-panel teal center-align">
+    <div class="card-panel  purple darken-1 center-align">
       <h6 class="white-text">Deuda Total ${{total}}
       </h6>
     </div>
   </div>
   <div class="col s12 m6">
-    <div class="card-panel teal center-align">
+    <div class="card-panel  purple darken-1 center-align">
       <h6 class="white-text center-align">Pago Minimo ${{quincena_total}}
       </h6>
     </div>
@@ -28,20 +28,20 @@
   </div>
 
   <ul class="collection with-header">
-    <li class="collection-header center-align">
+    <li class="collection-header">
       <h4>Pendientes {{quincena_pendientes}}</h4>
     </li>
 
     <div class="row">
       <ng-container *ngFor="let item of quincena; let i=index">
         <div class="col s12 m3" *ngIf="item.pagado === 'no'">
-          <div class="card   teal darken-1">
+          <div class="card red accent-2">
             <div class="card-content white-text">
               <span class="card-title"><b>{{item.nombre}}</b></span>
               <p>Pago Minimo <b> ${{item.pagoMinimo}}</b></p>
               <p>Dia limite de pago es el {{item.diaLimite}}</p>
             </div>
-            <div class="card-action teal darken-2">
+            <div class="card-action red accent-3">
               <a [routerLink]="[ '/debtsDetails', { params: item | json } ]" class="secondary-content white-text"><i
                   class="material-icons">send</i></a>
               <a class="waves-effect waves-light btn" (click)="changeStatus(item)"><i class="material-icons left">cloud</i>Pagar</a>
@@ -53,19 +53,19 @@
   </ul>
 
   <ul class="collection with-header">
-    <li class="collection-header center-align">
+    <li class="collection-header">
       <h4>Pagados</h4>
     </li>
     <div class="row">
       <ng-container *ngFor="let item of quincena; let i=index">
         <div class="col s12 m3" *ngIf="item.pagado === 'si'">
-          <div class="card orange darken-1">
+          <div class="card light-green darken-1">
             <div class="card-content white-text">
               <span class="card-title"><b>{{item.nombre}}</b></span>
               <p>Pago Minimo <b> ${{item.pagoMinimo}}</b></p>
               <p>Dia limite de pago es el {{item.diaLimite}}</p>
             </div>
-            <div class="card-action  orange darken-2">
+            <div class="card-action light-green darken-2">
               <a [routerLink]="[ '/debtsDetails', { params: item | json } ]" class="secondary-content white-text"><i
                   class="material-icons">send</i></a>
               <a class="waves-effect waves-light btn" (click)="changeStatus(item)"><i class="material-icons left">cloud</i>Regresar</a>
