@@ -4,13 +4,13 @@
 
 <div class="row">
   <div class="col s12 m6">
-    <div class="card-panel  purple darken-1 center-align">
+    <div class="card-panel light-green darken-1 center-align">
       <h6 class="white-text">Deuda Total ${{total}}
       </h6>
     </div>
   </div>
   <div class="col s12 m6">
-    <div class="card-panel  purple darken-1 center-align">
+    <div class="card-panel light-green darken-1 center-align">
       <h6 class="white-text center-align">Pago Minimo ${{quincena_total}}
       </h6>
     </div>
@@ -43,8 +43,8 @@
             </div>
             <div class="card-action red accent-3">
               <a [routerLink]="[ '/debtsDetails', { params: item | json } ]" class="secondary-content white-text"><i
-                  class="material-icons">send</i></a>
-              <a class="waves-effect waves-light btn" (click)="changeStatus(item)"><i class="material-icons left">cloud</i>Pagar</a>
+                  class="material-icons">edit</i></a>
+              <a class="waves-effect waves-light btn" (click)="changeStatus(item)"><i class="material-icons left">payment</i>Pagar</a>
             </div>
           </div>
         </div>
@@ -67,8 +67,8 @@
             </div>
             <div class="card-action light-green darken-2">
               <a [routerLink]="[ '/debtsDetails', { params: item | json } ]" class="secondary-content white-text"><i
-                  class="material-icons">send</i></a>
-              <a class="waves-effect waves-light btn" (click)="changeStatus(item)"><i class="material-icons left">cloud</i>Regresar</a>
+                  class="material-icons">edit</i></a>
+              <a class="waves-effect waves-light btn" (click)="changeStatus(item)"><i class="material-icons left">backspace</i>Regresar</a>
             </div>
           </div>
         </div>
