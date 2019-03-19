@@ -23,7 +23,15 @@ export class DebtsService {
   }
 
   getDebts() {
-    return this.http.get(this._url + '/findOne').pipe(
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    const payload = {
+       token : sessionStorage.getItem('token'),
+    };
+
+    return this.http.post(this._url + '/findOne', payload, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -32,6 +40,8 @@ export class DebtsService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
+
+    payload['token'] = sessionStorage.getItem('token');
 
     this.http.post<any>(this._url + '/update', payload, httpOptions).pipe(
       catchError(this.handleError)
@@ -43,16 +53,19 @@ export class DebtsService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
+    payload['token'] = sessionStorage.getItem('token');
+
     return this.http.post<any>(this._url + '/updateContent', payload, httpOptions).pipe(debounceTime(5000),
       catchError(this.handleError)
     );
   }
 
-
   saveDebts(payload) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
+
+    payload['token'] = sessionStorage.getItem('token');
 
     return this.http.post<any>(this._url + '/save', payload, httpOptions).pipe(
       catchError(this.handleError)
@@ -63,6 +76,8 @@ export class DebtsService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
+
+    payload['token'] = sessionStorage.getItem('token');
 
     return this.http.post<any>(this._url + '/delete', payload, httpOptions).pipe(
       catchError(this.handleError)
@@ -87,6 +102,7 @@ export class DebtsService {
 
   loginGoogle() {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
+      console.log(data);
       this.setToken(data.token);
       this.router.navigate(['/debt']);
     });
