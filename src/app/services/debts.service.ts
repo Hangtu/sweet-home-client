@@ -31,7 +31,7 @@ export class DebtsService {
        token : sessionStorage.getItem('token'),
     };
 
-    return this.http.post(this._url + '/findOne', payload, httpOptions).pipe(
+    return this.http.get(this._url + '/findOne', httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -88,6 +88,10 @@ export class DebtsService {
     sessionStorage.setItem('token', e);
   }
 
+  setUserId(e) {
+    sessionStorage.setItem('userID', e);
+  }
+
   validateToken() {
     const token = sessionStorage.getItem('token');
     return (token != null && token !== '' && token !== 'undefined');
@@ -104,6 +108,7 @@ export class DebtsService {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
       console.log(data);
       this.setToken(data.token);
+      this.setUserId(data.id);
       this.router.navigate(['/debt']);
     });
   }
