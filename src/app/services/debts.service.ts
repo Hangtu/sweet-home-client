@@ -11,8 +11,8 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class DebtsService {
 
-   _url = 'https://sweet-home-heroku.herokuapp.com';
-  // _url = 'http://192.168.100.71:3000';
+   // _url = 'https://sweet-home-heroku.herokuapp.com';
+   _url = 'http://192.168.100.71:3000';
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
@@ -28,10 +28,10 @@ export class DebtsService {
     };
 
     const payload = {
-       token : sessionStorage.getItem('token'),
+       userID : sessionStorage.getItem('userID'),
     };
 
-    return this.http.get(this._url + '/findOne', httpOptions).pipe(
+    return this.http.post(this._url + '/findOne', payload, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -106,7 +106,6 @@ export class DebtsService {
 
   loginGoogle() {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
-      console.log(data);
       this.setToken(data.token);
       this.setUserId(data.id);
       this.router.navigate(['/debt']);
