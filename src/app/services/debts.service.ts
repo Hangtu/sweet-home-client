@@ -11,8 +11,8 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class DebtsService {
 
-   // _url = 'https://sweet-home-heroku.herokuapp.com';
-   _url = 'http://192.168.100.71:3000';
+   _url = 'https://sweet-home-heroku.herokuapp.com';
+   // _url = 'http://192.168.100.71:3000';
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
@@ -42,6 +42,7 @@ export class DebtsService {
     };
 
     payload['token'] = sessionStorage.getItem('token');
+    payload['userID'] =  sessionStorage.getItem('userID');
 
     this.http.post<any>(this._url + '/update', payload, httpOptions).pipe(
       catchError(this.handleError)
@@ -54,6 +55,7 @@ export class DebtsService {
     };
 
     payload['token'] = sessionStorage.getItem('token');
+    payload['userID'] =  sessionStorage.getItem('userID');
 
     return this.http.post<any>(this._url + '/updateContent', payload, httpOptions).pipe(debounceTime(5000),
       catchError(this.handleError)
@@ -66,6 +68,7 @@ export class DebtsService {
     };
 
     payload['token'] = sessionStorage.getItem('token');
+    payload['userID'] =  sessionStorage.getItem('userID');
 
     return this.http.post<any>(this._url + '/save', payload, httpOptions).pipe(
       catchError(this.handleError)
@@ -78,6 +81,7 @@ export class DebtsService {
     };
 
     payload['token'] = sessionStorage.getItem('token');
+    payload['userID'] =  sessionStorage.getItem('userID');
 
     return this.http.post<any>(this._url + '/delete', payload, httpOptions).pipe(
       catchError(this.handleError)
