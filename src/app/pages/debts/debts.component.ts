@@ -109,6 +109,11 @@ export class DebtsComponent implements OnInit, AfterContentInit {
 
 
   loadAllDebts(data: Object | { data: { deudas: any; }; }[]) {
+    if (typeof data[0] === 'undefined') {
+      // create new one
+      return;
+    }
+
     const debts = data[0].data.deudas;
     const debts2 = JSON.parse(JSON.stringify(debts)); // CLONE THE OBJECT
     debts.forEach((p) => { // Q1
